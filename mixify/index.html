@@ -10,7 +10,7 @@
 						height:150px;
 					}
 				</style>
-				
+
 </head>
 <body>
 	<div class="container">
@@ -27,17 +27,17 @@
 				<span class="label label-warning">Disclaimer:</span> I built this for myself, on a mac and tested it on the browsers I use (Safari, Firefox and Chrome)... I have not tested it in other browsers. Use at your own risk! I am not responsible for any harm that may fall upon you, your computer or your family through the use of this tool. Side effects may include an abundance of playlists, excessive head banging and/or dancing and increased risk of hearing loss. If the enjoyment of your music persists for more than four hours... keep going, you should be fine. No animals were harmed in the making of Mixify (though my dogs did get a little impatient with me and made me stop to play frisbee).
 			</p>
 		</div>
-		
+
 		<h2>1. Drag your playlist from Spotify into this box...</h2>
 		<h4 class="clutter">Open your playlist, select all tracks, then just drag them over</h4>
 		<div id="inputSection">
 			<textarea id = "PlaylistInput" rows="20" cols="100"></textarea>
 		</div>
-		
+
 		<h2>2. Click the "Mixify" button...</h2>
 		<h4 class="clutter">(Once is enough, but feel free to click as many times as you like)</h4>
 		<button id="scramble" class="btn btn-success btn-large btn-block">Mixify &rarr;</button>
-	
+
 		<h2>3. Drag this back into Spotify and rock out!</h2>
 		<h4 class="clutter">Clear out your old playlist or creating a new one from this list... if you drag this back to the original list, you'll be adding the mixed up list to the original list and you'll end up with duplicates.</h4>
 		<textarea id = "PlaylistOutput" rows="20" cols="100"></textarea>
@@ -46,9 +46,9 @@
 			<h4>Grab your scrambled playlist first... this resets everything</h4>
 			<button id="again" class="btn btn-primary btn-large btn-block">Again! Again!</button>
 		</div>
-		<a href="#" id="showClutter">show hints n shit</a>
+		<a href="#" id="showClutter">show hints and stuff</a>
 	</div>
-	
+
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(function(){
@@ -61,7 +61,7 @@
 					$('#showClutter').show();
 				}
 			}
-			
+
 			$('#showClutter').click(function(){
 				$('.clutter').slideDown(300);
 				$('#showClutter').hide();
@@ -70,7 +70,7 @@
 				$('.clutter').slideUp(300);
 				$('#showClutter').show();
 			});
-			
+
 			$('#scramble').click(function(){
 				var playList = $('#PlaylistInput').val();
 				var items = playList.split('\n');
@@ -83,15 +83,15 @@
 				var output = '';
 				$.each(items, function(i,v){
 					if(v != undefined){
-						output += v + '\n'; 
+						output += v + '\n';
 					}
 				});
-				
+
 				$('#PlaylistOutput').val(output).select();
 				$('#inputSection').slideUp(400);
 				$('#againSection').slideDown(400);
 			});
-		
+
 			$('#again').click(function(){
 				$('#PlaylistInput').val('');
 				$('#PlaylistOutput').val('');
@@ -99,7 +99,7 @@
 				$('#againSection').slideUp(400);
 			});
 		})
-		
+
 		function fisherYates ( myArray ) {
 		  var i = myArray.length, j, tempi, tempj;
 		  if ( i === 0 ) return false;
