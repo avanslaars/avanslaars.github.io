@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Mixify - playlist scrambler for Spotify</title>
+				<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
+				<style type="text/css" media="screen">
+					textarea{
+						width:99%;
+						height:150px;
+					}
+				</style>
+				
+</head>
+<body>
+	<div class="container">
+		<div id="header">
+			<h1 id="the_mixifyer">Mixify</h1>
+			<h5>a simple playlist scrambler for Spotify</h5>
+		</div>
+		<h5 class="clutter">Know what you're doing already? <a href="#clutterFree" id="clearClutter">Clear The Clutter</a> - <em>bookmark the clutter free version and this will be hidden when you come back too</em></h5>
+		<div class="clutter">
+			<p>
+				So you drag a bunch of tunes into a playlist, everything is lumped together by album or artist and you don't want to listen to it that way but you want more control than simply using shuffle will allow? You might want to seek professional help regarding your need for control, or... Use Mixify to pre-shuffle your list, put it back in Spotify Enjoy!
+			</p>
+			<p>
+				<span class="label label-warning">Disclaimer:</span> I built this for myself, on a mac and tested it on the browsers I use (Safari, Firefox and Chrome)... I have not tested it in other browsers. Use at your own risk! I am not responsible for any harm that may fall upon you, your computer or your family through the use of this tool. Side effects may include an abundance of playlists, excessive head banging and/or dancing and increased risk of hearing loss. If the enjoyment of your music persists for more than four hours... keep going, you should be fine. No animals were harmed in the making of Mixify (though my dogs did get a little impatient with me and made me stop to play frisbee).
+			</p>
+		</div>
+		
+		<h2>1. Drag your playlist from Spotify into this box...</h2>
+		<h4 class="clutter">Open your playlist, select all tracks, then just drag them over</h4>
+		<div id="inputSection">
+			<textarea id = "PlaylistInput" rows="20" cols="100"></textarea>
+		</div>
+		
+		<h2>2. Click the "Mixify" button...</h2>
+		<h4 class="clutter">(Once is enough, but feel free to click as many times as you like)</h4>
+		<button id="scramble" class="btn btn-success btn-large btn-block">Mixify &rarr;</button>
+	
+		<h2>3. Drag this back into Spotify and rock out!</h2>
+		<h4 class="clutter">Clear out your old playlist or creating a new one from this list... if you drag this back to the original list, you'll be adding the mixed up list to the original list and you'll end up with duplicates.</h4>
+		<textarea id = "PlaylistOutput" rows="20" cols="100"></textarea>
+		<div id="againSection">
+			<h2>Wanna Do It Again?</h2>
+			<h4>Grab your scrambled playlist first... this resets everything</h4>
+			<button id="again" class="btn btn-primary btn-large btn-block">Again! Again!</button>
+		</div>
+		<a href="#" id="showClutter">show hints n shit</a>
+	</div>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(function(){
+			$('#againSection').hide();
+			$('#showClutter').hide();
+			if(document.URL.indexOf('#') > 0){
+				var hash = document.URL.substr(document.URL.indexOf('#')+1)
+				if(hash == "clutterFree"){
+					$('.clutter').hide();
+					$('#showClutter').show();
+				}
+			}
+			
+			$('#showClutter').click(function(){
+				$('.clutter').slideDown(300);
+				$('#showClutter').hide();
+			});
+			$('#clearClutter').click(function(){
+				$('.clutter').slideUp(300);
+				$('#showClutter').show();
+			});
+			
+			$('#scramble').click(function(){
+				var playList = $('#PlaylistInput').val();
+				var items = playList.split('\n');
+				items.reverse();
+				fisherYates(items);
+				items.reverse();
+				fisherYates(items);
+				fisherYates(items);
+				items.reverse();
+				var output = '';
+				$.each(items, function(i,v){
+					if(v != undefined){
+						output += v + '\n'; 
+					}
+				});
+				
+				$('#PlaylistOutput').val(output).select();
+				$('#inputSection').slideUp(400);
+				$('#againSection').slideDown(400);
+			});
+		
+			$('#again').click(function(){
+				$('#PlaylistInput').val('');
+				$('#PlaylistOutput').val('');
+				$('#inputSection').show(400);
+				$('#againSection').slideUp(400);
+			});
+		})
+		
+		function fisherYates ( myArray ) {
+		  var i = myArray.length, j, tempi, tempj;
+		  if ( i === 0 ) return false;
+		  while ( --i ) {
+		     j = Math.floor( Math.random() * ( i + 1 ) );
+		     tempi = myArray[i];
+		     tempj = myArray[j];
+		     myArray[i] = tempj;
+		     myArray[j] = tempi;
+		   }
+		}
+	</script>
+  <!--[if IE]>
+          <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</body>
+</html>
