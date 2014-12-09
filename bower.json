@@ -1,0 +1,19 @@
+{
+  "name": "avanslaars.github.io",
+  "version": "0.0.0",
+  "homepage": "https://github.com/avanslaars/avanslaars.github.io",
+  "authors": [
+    "Andrew Van Slaars <avanslaars@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1"
+  }
+}
