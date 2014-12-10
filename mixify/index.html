@@ -3,7 +3,8 @@
 <head>
         <meta charset="utf-8" />
         <title>Mixify - a playlist scrambler for Spotify</title>
-				<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
+				<!-- <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen" title="no title" charset="utf-8"> -->
+        <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
 				<style type="text/css" media="screen">
 					textarea{
 						width:99%;
@@ -39,7 +40,13 @@
 		<button id="scramble" class="btn btn-success btn-large btn-block">Mixify &rarr;</button>
 
 		<h2>3. Drag this back into Spotify and rock out!</h2>
-		<h4 class="clutter">Clear out your old playlist or creating a new one from this list... if you drag this back to the original list, you'll be adding the mixed up list to the original list and you'll end up with duplicates.</h4>
+    <h3>
+      <span class="label label-danger clutter">Warning</span>
+    </h3>
+
+		<h4 class="clutter">
+        Clear out your old playlist or create a new one from this list... if you drag this back to the original list, you'll be adding the mixed up list to the original list and you'll end up with duplicates.
+    </h4>
 		<textarea id = "PlaylistOutput" rows="20" cols="100"></textarea>
 		<div id="againSection">
 			<h2>Wanna Do It Again?</h2>
