@@ -138,7 +138,7 @@
       pocApp.controller('MainController', function($scope, stackService){
         $scope.sourceStack = stackService.getStack();
         // init
-        var defaultCard = new Card('drop here...', -1);
+        var defaultCard = new Card('...', -1);
         $scope.targetStack = [defaultCard];
 
         // Controller is getting fat... abstract some stuff out
@@ -182,16 +182,17 @@
 
         factory.reorderCards = function(stack, dragIndex, dropIndex){
           if(dropIndex == stack.length-1){
-            stack.move(draggedIndex,dropIndex-1);
+            stack.move(dragIndex,dropIndex-1);
           }else {
-            if(draggedIndex > dropIndex){
-              stack.move(draggedIndex,dropIndex);
+            if(dragIndex > dropIndex){
+              stack.move(dragIndex,dropIndex);
             }
             else {
-              stack.move(draggedIndex, dropIndex-1);
+              stack.move(dragIndex, dropIndex-1);
             }
 
           }
+          // return stack;
         };
 
         return factory;
