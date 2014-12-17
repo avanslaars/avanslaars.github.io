@@ -1,0 +1,207 @@
+<html ng-app="pocApp">
+  <head>
+    <title>Estimation UI POC</title>
+    <script src="js/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="js/angular/angular.min.js" charset="utf-8"></script>
+    <script src="js/ngDraggable/ngDraggable.js" charset="utf-8"></script>
+    <style>
+      * {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      [ng-drag] {
+        -moz-user-select: -moz-none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      [ng-drag] {
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 0, 0, 0.5);
+        color: white;
+        text-align: center;
+        padding-top: 40px;
+        display: block;
+        cursor: move;
+      }
+
+      [ng-drag].drag-over {
+        border: solid 1px red;
+      }
+
+      [ng-drag].dragging {
+        opacity: 0.5;
+      }
+
+      [ng-drop] {
+        background: rgba(0, 0, 0, 0.25);
+        text-align: center;
+        display: block;
+        position: relative;
+        padding: 20px;
+        width: 140px;
+        height: 140px;
+        float: left;
+      }
+
+      [ng-drop].drag-enter {
+        border-left: solid 5px red;
+      }
+
+      [ng-drop] span.title {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        height: 20px;
+        margin-left: -100px;
+        margin-top: -10px;
+      }
+
+      [ng-drop] div {
+        position: relative;
+        z-index: 2;
+      }
+
+      .draglist {
+        display: inline-block;
+        margin: 0 auto;
+        padding:3;
+      }
+
+      .sourcelist{
+        max-width:500px;
+      }
+
+      .selected{
+        background-color:red;
+        color:white;
+      }
+
+      .default{
+        background-color:#ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div ng-controller="MainController" ng-cloak>
+      <div id="sourceStack">
+        <h3>Source:</h3>
+        <ul class="sourcelist">
+          <li ng-repeat="card in sourceStack" class="draglist">
+            <div ng-drag="true" ng-drag-data="card" ng-class="{selected:card.id == selectedCard.id}">
+              {{card.title}}
+              <a href="#" ng-click="showDetails(card)">show details</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div id="cardDetails">
+        {{selectedCard.title}}<br/>
+        {{selectedCard.id}}
+      </div>
+
+      <div id="targetStack" >
+        <h3>Target:</h3>
+        <ul>
+          <li ng-repeat="card in targetStack" ng-drop="true" ng-drop-success="onDropComplete($index, $data ,$event)">
+            <div ng-drag="card.id != -1" ng-class="{default:card.id == -1}" ng-drag-data="card">
+              {{card.title}}
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <script charset="utf-8">
+      // Util method to move an item within an array
+      Array.prototype.move = function (old_index, new_index) {
+        if (new_index >= this.length) {
+          var k = new_index - this.length;
+          while ((k--) + 1) {
+            this.push(undefined);
+          }
+        }
+        this.splice(new_index, 0, this.splice(old_index, 1)[0]);
+      };
+
+      // Angular App
+      var pocApp = angular.module('pocApp',['ngDraggable']);
+
+      pocApp.controller('MainController', function($scope, stackService){
+        $scope.sourceStack = stackService.getStack();
+        // init
+        var defaultCard = new Card('drop here...', -1);
+        $scope.targetStack = [defaultCard];
+
+        // Controller is getting fat... abstract some stuff out
+        $scope.onDropComplete = function(dropIndex, obj, event){
+          var draggedIndex = $scope.targetStack.indexOf(obj);
+          if(dropIndex == draggedIndex){ return; }
+
+          if(draggedIndex < 0){
+            // The whole pass-by-ref thing feels a little bit dirty...
+            stackService.moveCardToTargetStack($scope.targetStack, $scope.sourceStack, obj, dropIndex);
+          }else {
+            stackService.reorderCards($scope.targetStack, draggedIndex, dropIndex);
+          }
+
+        };
+
+        $scope.showDetails = function(card){
+          $scope.selectedCard = card;
+        }
+
+      });
+
+      pocApp.factory('stackService', function(){
+        var factory = {};
+
+        factory.getStack = function(){
+          var cardStack = [];
+
+          for (var i = 0; i < 10; i++) {
+            cardStack.push(new Card("Card Number: "+i, i));
+          }
+
+          return cardStack;
+        };
+
+        factory.moveCardToTargetStack = function(target, source, card, dropIndex){
+          target.push(card);
+          target.move(target.length-1,dropIndex)
+          source.splice(source.indexOf(card),1);
+        };
+
+        factory.reorderCards = function(stack, dragIndex, dropIndex){
+          if(dropIndex == stack.length-1){
+            stack.move(draggedIndex,dropIndex-1);
+          }else {
+            if(draggedIndex > dropIndex){
+              stack.move(draggedIndex,dropIndex);
+            }
+            else {
+              stack.move(draggedIndex, dropIndex-1);
+            }
+
+          }
+        };
+
+        return factory;
+      });
+
+      var Card = function(title, id){
+        this.title = title;
+        this.id = id;
+      }
+
+    </script>
+  </body>
+</html>
