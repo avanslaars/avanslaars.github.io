@@ -20,12 +20,13 @@
       }
 
       [ng-drag] {
-        width: 100px;
-        height: 100px;
-        background: rgba(255, 0, 0, 0.5);
+        width: 200px;
+        height: 120px;
+        /*background: rgba(255, 0, 0, 0.5);*/
+        background:#333;
         color: white;
         text-align: center;
-        padding-top: 40px;
+        padding-top: 5px;
         display: block;
         cursor: move;
       }
@@ -44,8 +45,8 @@
         display: block;
         position: relative;
         padding: 20px;
-        width: 140px;
-        height: 140px;
+        width: 240px;
+        height: 150px;
         float: left;
       }
 
@@ -72,20 +73,12 @@
       .draglist {
         display: inline-block;
         margin: 0 auto;
-        padding:3;
+        padding:2;
       }
 
-      .sourcelist{
-        max-width:500px;
-      }
-
-      .selected{
-        background-color:red;
-        color:white;
-      }
-
-      .default{
+      div.default{
         background-color:#ccc;
+        padding-top:50;
       }
     </style>
   </head>
@@ -95,24 +88,18 @@
         <h3>Source:</h3>
         <ul class="sourcelist">
           <li ng-repeat="card in sourceStack" class="draglist">
-            <div ng-drag="true" ng-drag-data="card" ng-class="{selected:card.id == selectedCard.id}">
-              {{card.title}}
-              <a href="#" ng-click="showDetails(card)">show details</a>
+            <div ng-drag="true" ng-drag-data="card">
+              {{card.name}}
             </div>
           </li>
         </ul>
       </div>
-      <div id="cardDetails">
-        {{selectedCard.title}}<br/>
-        {{selectedCard.id}}
-      </div>
-
       <div id="targetStack" >
         <h3>Target:</h3>
         <ul>
           <li ng-repeat="card in targetStack" ng-drop="true" ng-drop-success="onDropComplete($index, $data ,$event)">
-            <div ng-drag="card.id != -1" ng-class="{default:card.id == -1}" ng-drag-data="card">
-              {{card.title}}
+            <div ng-drag="card._id != -1" ng-class="{default:card._id == -1}" ng-drag-data="card">
+              {{card.name}}
             </div>
           </li>
         </ul>
@@ -136,7 +123,9 @@
       var pocApp = angular.module('pocApp',['ngDraggable']);
 
       pocApp.controller('MainController', function($scope, stackService){
-        $scope.sourceStack = stackService.getStack();
+        stackService.getStack().success(function(data){
+          $scope.sourceStack = data;
+        });
         // init
         var defaultCard = new Card('...', -1);
         $scope.targetStack = [defaultCard];
@@ -152,26 +141,15 @@
           }else {
             stackService.reorderCards($scope.targetStack, draggedIndex, dropIndex);
           }
-
         };
-
-        $scope.showDetails = function(card){
-          $scope.selectedCard = card;
-        }
-
       });
 
-      pocApp.factory('stackService', function(){
+      pocApp.factory('stackService', function($http){
         var factory = {};
 
         factory.getStack = function(){
-          var cardStack = [];
-
-          for (var i = 0; i < 10; i++) {
-            cardStack.push(new Card("Card Number: "+i, i));
-          }
-
-          return cardStack;
+          // implement $q for more verbose/standard promise return...
+          return $http.get('cards.json');
         };
 
         factory.moveCardToTargetStack = function(target, source, card, dropIndex){
@@ -199,8 +177,8 @@
       });
 
       var Card = function(title, id){
-        this.title = title;
-        this.id = id;
+        this.name = title;
+        this._id = id;
       }
 
     </script>

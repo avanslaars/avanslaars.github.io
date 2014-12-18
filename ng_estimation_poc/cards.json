@@ -1,0 +1,15 @@
+[
+  {"_id":"xyz123", "name":"Account Registration", "description":"As a user, I want to be able to register an account so I can do cool things."},
+  {"_id":"xyz124", "name":"Account Login", "description":"As a user, I want to be able to log into my account so I can do cool things."},
+  {"_id":"xyz125", "name":"Facebook Login", "description":"As a user, I want to be able to connect my Facebook account to this login so I can login with my Facebook account and do cool things."},
+  {"_id":"xyz126", "name":"Twitter Login", "description":"As a user, I want to be able to connect my Twitter account to this login so I can login with my Twitter account and do cool things."},
+  {"_id":"xyz127", "name":"Github Login", "description":"As a user, I want to be able to connect my Github account to this login so I can login with my Github account and do cool things."},
+  {"_id":"xyz128", "name":"Google Login", "description":"As a user, I want to be able to connect my Google account to this login so I can login with my Google account and do cool things."},
+  {"_id":"xyz129", "name":"Linked In Login", "description":"As a user, I want to be able to connect my LinkedIn account to this login so I can login with my LinkedIn account and do cool things."},
+  {"_id":"ayz123", "name":"Logout", "description":"As a user, I want to be able to logout so nobody else with access my account when I'm not around."},
+  {"_id":"byz123", "name":"See My User Profile", "description":"As a user, I want to be able to view my personal user profile"},
+  {"_id":"cyz123", "name":"Update My Description", "description":"As a user, I want to be able to the description in my profile so I can lie to impress others."},
+  {"_id":"dyz123", "name":"Upload My Picture", "description":"As a user, I want to be able to upload a picture for my profile so I can express my individuality or make people think I'm thinner and more attractive than I really am."},
+  {"_id":"eyz123", "name":"Link to my website", "description":"As a user, I want to be able to link to my own website so other people can visit it and write earth shattering stuff like FIRST on the amazing things I write."},
+  {"_id":"fyz123", "name":"Social Account Sharing", "description":"As a user, I want to be able to control if people can see my social networking details or not."}
+]
