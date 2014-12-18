@@ -1,6 +1,6 @@
 {
-  "root": "/Users/avanslaars/Projects/_Project_Spikes/ng_estimation_poc",
-  "rcfile": "/Users/avanslaars/Projects/_Project_Spikes/ng_estimation_poc/.developmentserverrc",
+  "root": "/Users/avanslaars/Projects/avanslaars.github.io/ng_estimation_poc",
+  "rcfile": "/Users/avanslaars/Projects/avanslaars.github.io/ng_estimation_poc/.developmentserverrc",
   "views": {
     "NotifyView": "notify",
     "HttpServerView": "http",
@@ -10,12 +10,12 @@
     "ShortcutsView": "shortcuts"
   },
   "livereload": {
-    "root": "/Users/avanslaars/Projects/_Project_Spikes/ng_estimation_poc",
+    "root": "/Users/avanslaars/Projects/avanslaars.github.io/ng_estimation_poc",
     "port": 35729,
     "timeout": 1000
   },
   "http": {
-    "root": "/Users/avanslaars/Projects/_Project_Spikes/ng_estimation_poc",
+    "root": "/Users/avanslaars/Projects/avanslaars.github.io/ng_estimation_poc",
     "port": 8080,
     "timeout": 1000,
     "snippet": "\n<!-- livereload snippet -->\n\n<script src=\"http://localhost:35729/livereload.js\"></script>\n"
@@ -46,7 +46,7 @@
     "split": "right",
     "searchAllPanes": true,
     "changeFocus": false,
-    "cwd": "/Users/avanslaars/Projects/_Project_Spikes/ng_estimation_poc",
+    "cwd": "/Users/avanslaars/Projects/avanslaars.github.io/ng_estimation_poc",
     "shell": "/bin/bash"
   },
   "shortcuts": {
