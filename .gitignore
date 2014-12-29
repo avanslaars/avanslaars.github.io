@@ -1,6 +1,7 @@
 # Can ignore specific files
 .DS_Store
 .idea
+.developmentserverrc
 
 # Use wildcards as well
 # *~
